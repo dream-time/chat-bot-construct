@@ -15,7 +15,7 @@ db.connect(conf.mongouri, 'heroku_m9dkxksk', (err) => {
 app.use(body_parser.json())
 
 app.post('/test', (req, res) => {
-    res.send(req.body)
+    res.send(req.body) 
 })
 
 
