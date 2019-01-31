@@ -1,17 +1,24 @@
 const user = require('../models/user')
-const bcrypt = require('bcrypt')
+const hash = require('../parts/hash')
+
+function saltHashPassword(userpassword) {
+    var salt = genRandomString(16); /** Gives us salt of length 16 */
+    var passwordData = sha512(userpassword, salt);
+    console.log('UserPassword = '+userpassword);
+    console.log('Passwordhash = '+passwordData.passwordHash);
+    console.log('nSalt = '+passwordData.salt);
+}
+
 
 exports.add = (req, res) => {
-    bcrypt.hash(req.body['password'], 10, (err, hash) => {
-        user.add({
-            login: req.body.user,
-            password: hash
-        }, (err, result) => {
-            if(err){
-                console.log(err)
-                return res.sendStatus(500)
-            }
-            res.sendStatus(200)
-        })
+    user.add({
+        login: req.body.user,
+        password: hash.saltHashPassword(req.body["password"])
+    }, (err, result) => {
+        if(err){
+            console.log(err)
+            return res.sendStatus(500)
+        }
+        res.sendStatus(200)
     })
 }
