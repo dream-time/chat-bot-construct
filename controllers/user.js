@@ -10,8 +10,8 @@ function saltHashPassword(userpassword) {
 }
 
 
-exports.add = (req, res) => {
-    user.add({
+exports.reg = (req, res) => {
+    user.reg({
         login: req.body.user,
         password: hash.saltHashPassword(req.body["password"])
     }, (err, result) => {
