@@ -13,7 +13,7 @@ function saltHashPassword(userpassword) {
 exports.reg = (req, res) => {
     user.reg({
         login: req.body.user,
-        password: hash.saltHashPassword(req.body["password"])
+        password: hash.saltHashPassword(req.body["password"]).passwordHash
     }, (err, result) => {
         if(err){
             console.log(err)
