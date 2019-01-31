@@ -1,4 +1,5 @@
 const user = require('../models/user')
+const password_hash = require('password-hash')
 const hash = require('../parts/hash')
 
 function saltHashPassword(userpassword) {
@@ -13,7 +14,7 @@ function saltHashPassword(userpassword) {
 exports.reg = (req, res) => {
     user.reg({
         login: req.body.user,
-        password: hash.saltHashPassword(req.body["password"]).passwordHash
+        password: password_hash.generate(req.body.password)
     }, (err, result) => {
         if(err){
             console.log(err)
@@ -21,4 +22,15 @@ exports.reg = (req, res) => {
         }
         res.sendStatus(200)
     })
+}
+
+exports.login = (req, res) => {
+    var usr = user.all.find((element, index, array) => {
+        if(element.login.toString().trim() == req.body.user.toString().trim()){
+            return true;
+        }
+    })
+    if(password_hash.verify(req.body.password.toString().trim(), usr.password.toString().trim())){
+        res.send(hash.saltHashPassword(req.body.user.toString().trim() + req.body.password.toString().trim() + Date.now().toString()))
+    }
 }

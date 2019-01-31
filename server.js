@@ -16,5 +16,6 @@ db.connect(conf.mongouri, 'heroku_m9dkxksk', (err) => {
 app.use(body_parser.json())
 
 app.post('/reg', userController.reg)
+app.post('/login', userController.login)
 
 
