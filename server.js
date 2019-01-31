@@ -1,9 +1,11 @@
-var express = require('express'),
+const express = require('express'),
     body_parser = require('body-parser')
     db = require('./db')
     conf = require('./conf')
+    bcrypt = require('bcrypt')
+    userController = require('./controllers/user')
 
-var app = express()
+const app = express()
 
 db.connect(conf.mongouri, 'heroku_m9dkxksk', (err) => {
     if(err) {
@@ -14,8 +16,6 @@ db.connect(conf.mongouri, 'heroku_m9dkxksk', (err) => {
 
 app.use(body_parser.json())
 
-app.post('/test', (req, res) => {
-    res.send(req.body) 
-})
+app.post('/reg', userController.add)
 
 
