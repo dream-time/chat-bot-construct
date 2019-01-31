@@ -2,7 +2,6 @@ const express = require('express'),
     body_parser = require('body-parser')
     db = require('./db')
     conf = require('./conf')
-    bcrypt = require('bcrypt')
     userController = require('./controllers/user')
 
 const app = express()
