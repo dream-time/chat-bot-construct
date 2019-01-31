@@ -1,6 +1,5 @@
 var express = require('express'),
     body_parser = require('body-parser')
-    bcrypt = require('bcrypt')
     db = require('./db')
     conf = require('./conf')
 
