@@ -28,8 +28,8 @@ exports.login = (req, res) => {
     var usr;
     user.all((err, docs) => {
         docs.map((item, index) => {
-            if(item.login.toString().trim() == req.body.login.toString().trim()) {
-                usr = item
+            if(item.login == req.body.login) {
+                usr = item;
             }
         })
     })
