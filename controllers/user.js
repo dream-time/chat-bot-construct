@@ -25,11 +25,14 @@ exports.reg = (req, res) => {
 }
 
 exports.login = (req, res) => {
-    var usr = user.all().find((element, index, array) => {
-        if(element.login.toString().trim() == req.body.user.toString().trim()){
-            return true;
-        }
+    var usr = user.all((err, docs) => {
+        docs.find((element, index, array) => {
+            if(req.body.login.toString().trim() == element.login.toString().trim()){
+                return true
+            }
+        })
     })
+    console.log(usr)
     if(password_hash.verify(req.body.password.toString().trim(), usr.password.toString().trim())){
         res.send(hash.saltHashPassword(req.body.user.toString().trim() + req.body.password.toString().trim() + Date.now().toString()))
     }
