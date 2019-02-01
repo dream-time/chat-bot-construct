@@ -25,10 +25,11 @@ exports.reg = (req, res) => {
 }
 
 exports.login = (req, res) => {
-    var usr = user.all((err, docs) => {
-        docs.find((element, index, array) => {
-            if(req.body.login.toString().trim() == element.login.toString().trim()){
-                return true
+    var usr;
+    user.all((err, docs) => {
+        docs.map((item, index) => {
+            if(item.login.toString().trim() == req.body.login.toString().trim()) {
+                usr = item
             }
         })
     })
