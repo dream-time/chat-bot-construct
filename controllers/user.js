@@ -25,7 +25,7 @@ exports.reg = (req, res) => {
 }
 
 exports.login = (req, res) => {
-    var usr = user.all.find((element, index, array) => {
+    var usr = user.all().find((element, index, array) => {
         if(element.login.toString().trim() == req.body.user.toString().trim()){
             return true;
         }
